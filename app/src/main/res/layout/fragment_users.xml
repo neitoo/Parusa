@@ -5,14 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.Users">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userRecView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="USER"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>

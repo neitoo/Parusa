@@ -32,6 +32,11 @@ class AdminActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.addUserBtn.setOnClickListener {
+            val intent = Intent(this@AdminActivity, AddNewUserActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.navigationBottom.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.users -> replaceFragment(Users())
