@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/users"
+        android:enabled="true"
+        android:icon="@drawable/user_icon"
+        android:title="Пользователи" />
+    <item android:title="Кофейни"
+        android:id="@+id/coffe"
+        android:icon="@drawable/coffee_icon" />
+</menu>
