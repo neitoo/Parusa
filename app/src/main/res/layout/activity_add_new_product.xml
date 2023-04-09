@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".Activity.AddNewUserActivity">
+    tools:context=".Activity.AddNewProductActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="-40dp"
-                    android:text="Добавление пользователя"
+                    android:text="Добавление продукта"
                     android:textAlignment="center"
                     android:textColor="#000000"
                     android:textSize="21dp"
@@ -53,7 +53,7 @@
         </FrameLayout>
 
         <EditText
-            android:id="@+id/addNamePlain"
+            android:id="@+id/addCategoryPlain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -63,8 +63,8 @@
             android:background="@drawable/custom_input"
             android:drawablePadding="10dp"
             android:ems="10"
-            android:hint="Имя"
-            android:inputType="text"
+            android:hint="Категория"
+            android:inputType="number"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
@@ -74,7 +74,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/addSurnamePlain"
+            android:id="@+id/addTitlePlain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -83,8 +83,8 @@
             android:background="@drawable/custom_input"
             android:drawablePadding="10dp"
             android:ems="10"
-            android:hint="Фамилия"
-            android:inputType="text"
+            android:hint="Название"
+            android:inputType="number"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
@@ -93,65 +93,6 @@
             android:textColorHint="#777777"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/addEmailPlain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/custom_input"
-            android:drawablePadding="10dp"
-            android:ems="10"
-            android:hint="Почта"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:textColor="#000000"
-            android:textColorHint="#777777"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/addPasswordPlain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/custom_input"
-            android:drawablePadding="10dp"
-            android:ems="10"
-            android:hint="Пароль"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:textColor="#000000"
-            android:textColorHint="#777777"
-            android:textSize="20sp" />
-
-        <Spinner
-            android:id="@+id/roleSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="40dp"
-            android:background="@drawable/custom_input"
-            android:entries="@array/roles"
-            android:padding="10dp" />
-
-        <CheckBox
-            android:id="@+id/adminCheckBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginVertical="15dp"
-            android:buttonTint="#636363"
-            android:text="Администратор"
-            android:textColor="#000000"
-            android:textSize="16sp" />
 
         <Button
             android:id="@+id/addNewUserBtn"

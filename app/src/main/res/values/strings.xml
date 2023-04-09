@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Parusa</string>
+
+    <string-array name="roles">
+        <item>Выберите роль</item>
+        <item>Без роли</item>
+        <item>Управляющий</item>
+        <item>Аналитик</item>
+        <item>Закупщик</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

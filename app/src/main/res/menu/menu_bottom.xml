@@ -5,6 +5,10 @@
         android:enabled="true"
         android:icon="@drawable/user_icon"
         android:title="Пользователи" />
+    <item
+        android:id="@+id/products"
+        android:icon="@drawable/products_icon"
+        android:title="Продукты"/>
     <item android:title="Кофейни"
         android:id="@+id/coffe"
         android:icon="@drawable/coffee_icon" />
