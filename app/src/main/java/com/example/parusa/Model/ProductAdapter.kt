@@ -1,12 +1,16 @@
 package com.example.parusa.Model
 
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.example.parusa.Interface.ProductService
+import com.example.parusa.Interface.UserService
 import com.example.parusa.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +20,7 @@ import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ProductAdapter(private var prodList: List<Prod>) :
+class ProductAdapter(private var prodList: List<ProdData>) :
 RecyclerView.Adapter<ProductAdapter.ProdViewHolder>() {
 
     inner class ProdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -37,6 +41,46 @@ RecyclerView.Adapter<ProductAdapter.ProdViewHolder>() {
         holder.nameText.text = "Название: " + prod.title
 
         holder.deleteBtn.setOnClickListener {
+            val alertLogout = AlertDialog.Builder(it.context)
+            alertLogout.setTitle("Удалить продукт?")
+            alertLogout.setIcon(R.mipmap.ic_launcher)
+            alertLogout.setPositiveButton("Да"){ dialogInterface: DialogInterface, id: Int ->
+                val retrofit = Retrofit.Builder()
+                    .baseUrl("http://82.148.18.70:5001/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                val prodService = retrofit.create(ProductService::class.java)
+
+                val sharedPrefs = it.context.getSharedPreferences("auth", Context.MODE_PRIVATE)
+                val token = sharedPrefs.getString("access_token", "") ?: ""
+
+                val headers = mapOf("Authorization" to "Bearer $token")
+
+                val prodId = prod.id
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val response = prodService.deleteUser(headers, prodId)
+                        if (response.isSuccessful) {
+                            // удаление прошло успешно, обновление данных
+                            val newData = prodService.getProduct(headers)
+                            withContext(Dispatchers.Main) {
+                                updateData(newData)
+                            }
+                        } else {
+                            // обработка ошибки
+                        }
+                    } catch (e: Exception) {
+                        // обработка ошибки
+                    }
+                }
+            }
+            alertLogout.setNegativeButton("Нет"){ dialogInterface: DialogInterface, id: Int ->
+                dialogInterface.dismiss()
+
+            }
+            alertLogout.show()
+
 
         }
     }
@@ -45,7 +89,7 @@ RecyclerView.Adapter<ProductAdapter.ProdViewHolder>() {
         return prodList.size
     }
 
-    fun updateData(newData:List<Prod>) {
+    fun updateData(newData:List<ProdData>) {
         prodList = newData
         notifyDataSetChanged()
     }
