@@ -61,6 +61,11 @@ class AdminActivity : AppCompatActivity() {
 
         }
 
+        binding.infoCateg.setOnClickListener {
+            val intent = Intent(this@AdminActivity, ListProductsCategoryActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.navigationBottom.setOnItemSelectedListener {
             binding.addUserBtn.visibility = View.GONE
@@ -70,14 +75,17 @@ class AdminActivity : AppCompatActivity() {
                 R.id.users -> {
                     replaceFragment(Users())
                     binding.addUserBtn.visibility = View.VISIBLE
+                    binding.infoCateg.visibility = View.GONE
                 }
                 R.id.products -> {
                     replaceFragment(Product())
                     binding.addProductBtn.visibility = View.VISIBLE
+                    binding.infoCateg.visibility = View.VISIBLE
                 }
                 R.id.coffe -> {
                     replaceFragment(Coffee())
                     binding.addCoffeesBtn.visibility = View.VISIBLE
+                    binding.infoCateg.visibility = View.GONE
                 }
                 else -> {}
             }

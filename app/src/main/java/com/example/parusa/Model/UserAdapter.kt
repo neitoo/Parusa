@@ -42,10 +42,10 @@ class UserAdapter(private var userList: List<User>) :
         holder.surnameText.text = "Фамилия: " + (user.surname ?: "отсутствует")
         when (user.role) {
             "0" -> holder.roleText.text = "Роль: отсутствует"
-            "1" -> holder.roleText.text = "Роль: управляющий"
-            "2" -> holder.roleText.text = "Роль: аналитик"
-            "3" -> holder.roleText.text = "Роль: закупщик"
-            else -> holder.roleText.text = "Роль: отсутствует"
+            "1" -> holder.roleText.text = "Роль: без роли"
+            "2" -> holder.roleText.text = "Роль: управляющий"
+            "3" -> holder.roleText.text = "Роль: аналитик"
+            else -> holder.roleText.text = "Роль: закупщик"
         }
         holder.deleteBtn.setOnClickListener {
             val alertLogout = AlertDialog.Builder(it.context)

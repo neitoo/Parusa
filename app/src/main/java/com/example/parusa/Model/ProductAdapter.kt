@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.example.parusa.Interface.CategoryService
 import com.example.parusa.Interface.ProductService
 import com.example.parusa.Interface.UserService
 import com.example.parusa.R
@@ -37,8 +38,34 @@ RecyclerView.Adapter<ProductAdapter.ProdViewHolder>() {
 
     override fun onBindViewHolder(holder: ProdViewHolder, position: Int) {
         val prod = prodList[position]
-        holder.idText.text = "Категория: " + prod.category
         holder.nameText.text = "Название: " + prod.title
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://82.148.18.70:5001/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val categoryService = retrofit.create(CategoryService::class.java)
+
+        val sharedPrefs = holder.itemView.context.getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val token = sharedPrefs.getString("access_token", "") ?: ""
+
+        val headers = mapOf("Authorization" to "Bearer $token")
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val categories = categoryService.getCategories(headers)
+
+                // поиск категории с соответствующим идентификатором
+                val category = categories.find { it.id == prod.category }
+                val categoryName = category?.title ?: "Unknown category"
+
+                withContext(Dispatchers.Main) {
+                    holder.idText.text = "Категория: $categoryName"
+                }
+            } catch (e: Exception) {
+                // обработка ошибки
+            }
+        }
 
         holder.deleteBtn.setOnClickListener {
             val alertLogout = AlertDialog.Builder(it.context)

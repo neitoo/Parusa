@@ -53,37 +53,57 @@
 
         </FrameLayout>
 
-        <Button
-            android:id="@+id/addUserBtn"
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/custom_button"
-            android:text="Добавить пользователя"
-            android:textColor="#FFFFFF" />
+            android:gravity="center_horizontal|center_vertical">
 
-        <Button
-            android:id="@+id/addProductBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/custom_button"
-            android:text="Добавить продукт"
-            android:textColor="#FFFFFF"
-            android:visibility="gone"/>
+            <Button
+                android:id="@+id/addUserBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/custom_button"
+                android:text="Добавить пользователя"
+                android:textColor="#FFFFFF" />
 
-        <Button
-            android:id="@+id/addCoffeesBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/custom_button"
-            android:text="Добавить кофейню"
-            android:textColor="#FFFFFF"
-            android:visibility="gone"/>
+            <Button
+                android:id="@+id/addProductBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/custom_button"
+                android:paddingHorizontal="15dp"
+                android:text="Добавить продукт"
+                android:textColor="#FFFFFF"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/addCoffeesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/custom_button"
+                android:paddingHorizontal="10dp"
+                android:text="Добавить кофейню"
+                android:textColor="#FFFFFF"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/infoCateg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="10dp"
+                android:paddingHorizontal="15dp"
+                android:background="@drawable/custom_button"
+                android:text="Категории"
+                android:textColor="#FFFFFF"
+                android:visibility="gone"/>
+        </TableRow>
 
         <FrameLayout
             android:layout_width="match_parent"
