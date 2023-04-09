@@ -60,7 +60,7 @@ class AddNewProductActivity : AppCompatActivity() {
 
         // Создание объекта Retrofit
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://82.148.18.70:5001/")
+            .baseUrl("http://82.148.18.70/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

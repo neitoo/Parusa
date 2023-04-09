@@ -6,8 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.parusa.Interface.UserService
@@ -17,6 +16,7 @@ import org.json.JSONObject
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 
 class UserAdapter(private var userList: List<User>) :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
@@ -27,6 +27,82 @@ class UserAdapter(private var userList: List<User>) :
         val surnameText: TextView = view.findViewById(R.id.surnameText)
         val roleText: TextView = view.findViewById(R.id.roleText)
         val deleteBtn: ImageButton = view.findViewById(R.id.deleteUserBtn)
+
+        fun showEditDialog() {
+            val user = userList[adapterPosition]
+
+
+            val inflater = LayoutInflater.from(itemView.context)
+            val viewInflated = inflater.inflate(R.layout.layout_dialog_change, null)
+
+            val alertDialog = AlertDialog.Builder(itemView.context)
+                .setView(viewInflated)
+                .create()
+
+            val emailInput = viewInflated.findViewById<EditText>(R.id.updateEmailPlain)
+            val nameInput = viewInflated.findViewById<EditText>(R.id.updateNamePlain)
+            val surnameInput = viewInflated.findViewById<EditText>(R.id.updateSurnamePlain)
+            val roleSpinner = viewInflated.findViewById<Spinner>(R.id.updateRoleSpinner)
+
+
+            val saveButton = viewInflated.findViewById<Button>(R.id.saveChangeBtn)
+            val cancelButton = viewInflated.findViewById<Button>(R.id.cancelBtn)
+
+            emailInput.setText(user.email)
+            nameInput.setText(user.name)
+            surnameInput.setText(user.surname)
+
+            val roles = itemView.resources.getStringArray(R.array.roles)
+            val roleAdapter = ArrayAdapter(itemView.context, android.R.layout.simple_spinner_dropdown_item, roles)
+            roleSpinner.adapter = roleAdapter
+            roleSpinner.setSelection(user.role!!.toInt())
+
+            alertDialog.apply {
+                setView(viewInflated)
+
+                saveButton.setOnClickListener {
+
+                    user.email = emailInput.text.toString()
+                    user.name = nameInput.text.toString()
+                    user.surname = surnameInput.text.toString()
+                    user.role = roleSpinner.selectedItemPosition.toString()
+
+                    val retrofit = Retrofit.Builder()
+                        .baseUrl("http://82.148.18.70/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                    val userService = retrofit.create(UserService::class.java)
+
+                    val sharedPrefs = itemView.context.getSharedPreferences("auth", Context.MODE_PRIVATE)
+                    val token = sharedPrefs.getString("access_token", "") ?: ""
+
+                    val headers = mapOf("Authorization" to "Bearer $token")
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val response = userService.updateUser(headers, user.id, user)
+                            if (response.isSuccessful) {
+                                val newData = userService.getUsers(headers)
+                                withContext(Dispatchers.Main) {
+                                    updateData(newData)
+                                }
+                            } else {
+                                Log.e("UserService", "Failed to update user. Response code: ${response.code()}")
+                            }
+                        } catch (e: Exception) {
+                            Log.e("Error228", e.message, e)
+                        }
+                    }
+                    alertDialog.dismiss()
+                }
+
+                cancelButton.setOnClickListener {
+                    alertDialog.dismiss()
+                }
+
+                show()
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -53,7 +129,7 @@ class UserAdapter(private var userList: List<User>) :
             alertLogout.setIcon(R.mipmap.ic_launcher)
             alertLogout.setPositiveButton("Да"){ dialogInterface: DialogInterface, id: Int ->
                 val retrofit = Retrofit.Builder()
-                    .baseUrl("http://82.148.18.70:5001/")
+                    .baseUrl("http://82.148.18.70/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 val userService = retrofit.create(UserService::class.java)
@@ -90,7 +166,13 @@ class UserAdapter(private var userList: List<User>) :
 
 
         }
+
+        holder.itemView.setOnClickListener {
+            holder.showEditDialog()
+        }
     }
+
+
 
     override fun getItemCount(): Int {
         return userList.size

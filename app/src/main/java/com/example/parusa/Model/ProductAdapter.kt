@@ -41,7 +41,7 @@ RecyclerView.Adapter<ProductAdapter.ProdViewHolder>() {
         holder.nameText.text = "Название: " + prod.title
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://82.148.18.70:5001/")
+            .baseUrl("http://82.148.18.70/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val categoryService = retrofit.create(CategoryService::class.java)

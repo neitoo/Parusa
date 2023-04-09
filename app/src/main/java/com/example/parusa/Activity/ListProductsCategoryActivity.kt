@@ -39,7 +39,7 @@ class ListProductsCategoryActivity : AppCompatActivity() {
         val token = sharedPreferences?.getString("access_token", "") ?: ""
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://82.148.18.70:5001/")
+            .baseUrl("http://82.148.18.70/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

@@ -16,4 +16,11 @@ interface UserService {
         @HeaderMap headers: Map<String, String>,
         @Path("id") id: Int
     ): Response<Unit>
+
+    @PUT("users/{id}")
+    suspend fun updateUser(
+        @HeaderMap headers: Map<String, String>,
+        @Path("id") id: Int,
+        @Body user: User
+    ): Response<Unit>
 }
